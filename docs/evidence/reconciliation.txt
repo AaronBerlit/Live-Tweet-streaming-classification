@@ -1,0 +1,14 @@
+=== DATA RECONCILIATION ===
+claim:     windows.count sums to the scored record count; no zero windows; no orphan runs
+generated: 2026-09-23 15:43:49 UTC
+command:   make evidence-reconciliation
+
+check                             value  
+--------------------------------  -------
+sum of windows.count (last 23h)   201,281
+scored documents (last 23h)       201,281
+difference                        +0     
+windows stored with count <= 0    0      
+scored run_ids missing from runs  none   
+
+VERDICT: consistent. Every window count is backed by scored records.

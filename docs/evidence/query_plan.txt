@@ -1,0 +1,30 @@
+=== QUERY PLAN ===
+claim:     The dashboard reads small aggregated documents via an index
+generated: 2026-09-23 15:43:46 UTC
+command:   make evidence-query-plan
+
+query under test (the one /api/windows issues)
+  collection: windows
+  filter:     {window_start: {$gte: 2026-09-23T09:43:46.532738+00:00}}
+  sort:       {window_start: -1, prediction: 1}
+
+winning plan stages
+  FETCH
+  IXSCAN
+
+execution statistics
+metric               value
+-------------------  -----
+documents returned   20   
+documents examined   20   
+index keys examined  20   
+execution time (ms)  5    
+
+indexes present on `windows`
+index                         key                                      
+----------------------------  -----------------------------------------
+_id_                          [('_id', 1)]                             
+window_start_-1_prediction_1  [('window_start', -1), ('prediction', 1)]
+run_id_1                      [('run_id', 1)]                          
+
+VERDICT: the query uses an index scan (IXSCAN). C20 holds.

@@ -1,0 +1,69 @@
+# Pseudo-distributed HDFS (PRD C4, §5.2).
+#
+# dfs.replication=1 on a single datanode: real HDFS API, path semantics, block
+# splitting and CLI -- but NOT the fault tolerance of a multi-node cluster. That
+# limitation is stated in docs/LIMITATIONS.md rather than left to be discovered.
+#
+# Configuration is explicit files in infra/hadoop/, mounted read-only. The
+# apache/hadoop image's own mechanism (generating XML from environment
+# variables) leaves every file it has no variables for at 0 bytes, which
+# Hadoop cannot parse -- the namenode then dies silently because the image's
+# log4j.properties is empty too.
+#
+# The datanode advertises itself as 'localhost' and clients are told to use
+# hostnames, because Spark runs outside Docker and cannot route to a
+# container's internal IP.
+
+x-hadoop-common: &hadoop-common
+  image: apache/hadoop:3.3.6
+  user: root
+  restart: unless-stopped
+  entrypoint: ["/bin/bash", "-c"]
+  mem_limit: 1500m
+
+services:
+  namenode:
+    <<: *hadoop-common
+    container_name: sentiment-namenode
+    hostname: namenode
+    # Format exactly once: on first start the name directory has no `current`.
+    command:
+      - >-
+        if [ ! -d /hadoop/dfs/name/current ]; then
+        hdfs namenode -format -force -nonInteractive; fi;
+        exec hdfs namenode
+    ports:
+      - "9870:9870"   # web UI
+      - "9000:9000"   # RPC -- what Spark and the hdfs CLI talk to
+    environment:
+      HDFS_NAMENODE_OPTS: "-Xmx1g"
+    volumes:
+      - hdfs-name:/hadoop/dfs/name
+      - ./infra/hadoop/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml:ro
+      - ./infra/hadoop/hdfs-site-namenode.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml:ro
+      - ./infra/hadoop/empty-site.xml:/opt/hadoop/etc/hadoop/hdfs-rbf-site.xml:ro
+      - ./infra/hadoop/log4j.properties:/opt/hadoop/etc/hadoop/log4j.properties:ro
+
+  datanode:
+    <<: *hadoop-common
+    container_name: sentiment-datanode
+    hostname: datanode
+    depends_on:
+      - namenode
+    command: ["exec hdfs datanode"]
+    ports:
+      - "9864:9864"   # web UI
+      - "9866:9866"   # data transfer -- the port clients stream blocks over
+      - "9867:9867"   # IPC
+    environment:
+      HDFS_DATANODE_OPTS: "-Xmx1g"
+    volumes:
+      - hdfs-data:/hadoop/dfs/data
+      - ./infra/hadoop/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml:ro
+      - ./infra/hadoop/hdfs-site-datanode.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml:ro
+      - ./infra/hadoop/empty-site.xml:/opt/hadoop/etc/hadoop/hdfs-rbf-site.xml:ro
+      - ./infra/hadoop/log4j.properties:/opt/hadoop/etc/hadoop/log4j.properties:ro
+
+volumes:
+  hdfs-name:
+  hdfs-data:

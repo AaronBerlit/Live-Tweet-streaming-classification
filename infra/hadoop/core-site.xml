@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- Shared by namenode and datanode. Mounted read-only by docker-compose.hdfs.yml. -->
+<configuration>
+  <property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
+</configuration>

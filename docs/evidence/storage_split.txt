@@ -1,0 +1,32 @@
+=== STORAGE SPLIT ===
+claim:     MongoDB stores aggregates, not the raw corpus; `scored` is TTL-bounded
+generated: 2026-09-23 15:43:43 UTC
+command:   make evidence-storage-split
+
+MongoDB -- serving layer
+collection  documents  data size  storage   indexes  index size
+----------  ---------  ---------  --------  -------  ----------
+windows     760        159.0 KB   80.0 KB   3        156.0 KB  
+scored      203,281    78.1 MB    35.5 MB   5        15.4 MB   
+hashtags    5,761      1.1 MB     288.0 KB  3        412.0 KB  
+metrics     7          3.6 KB     36.0 KB   3        108.0 KB  
+heartbeat   1          235 B      36.0 KB   1        24.0 KB   
+runs        6          1.6 KB     36.0 KB   2        72.0 KB   
+batches     184        46.7 KB    64.0 KB   4        144.0 KB  
+
+MongoDB total data size: 79.5 MB
+
+data lake (hdfs) -- 2,935 files
+data lake total size:    666.2 MB
+
+the lake holds 8.4x more bytes than the serving layer
+
+why the split is shaped this way
+  windows/hashtags  small, aggregated, durable -- what the dashboard reads
+  scored            raw classified records, TTL 24h on ingest_time
+  the corpus itself never enters MongoDB; it stays in the lake as Parquet
+
+TTL index on `scored` (the mitigation for uncontrolled growth)
+index            key                   expires after
+---------------  --------------------  -------------
+ingest_time_ttl  [('ingest_time', 1)]  86400s       

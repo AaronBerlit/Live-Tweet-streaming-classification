@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<configuration>
+  <property><name>dfs.replication</name><value>1</value></property>
+  <property><name>dfs.datanode.data.dir</name><value>/hadoop/dfs/data</value></property>
+  <!-- Advertised to clients; must match the ports published in compose. -->
+  <property><name>dfs.datanode.hostname</name><value>localhost</value></property>
+  <property><name>dfs.datanode.address</name><value>0.0.0.0:9866</value></property>
+  <property><name>dfs.datanode.http.address</name><value>0.0.0.0:9864</value></property>
+  <property><name>dfs.datanode.ipc.address</name><value>0.0.0.0:9867</value></property>
+  <property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
+</configuration>

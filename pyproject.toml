@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentiment-stream"
+version = "1.0.0"
+description = "Real-time sentiment analytics of social media streams (BCSE402L DA-2)"
+requires-python = "==3.11.*"
+
+[tool.setuptools]
+# Every top-level module in this repo is importable as a package, so
+# `python -m ingest.download` and `pytest` both resolve imports the same way.
+packages = ["api", "ingest", "pipeline", "scripts", "storage", "trainer"]

@@ -1,0 +1,25 @@
+=== REPRODUCIBLE REPLAY ===
+claim:     Replay is reproducible -- same records, same order, for a given seed
+generated: 2026-09-23 15:44:40 UTC
+command:   make evidence-reproducible
+
+sample size: 5,000 records
+
+run 1 (seed 42)
+  records: 5,000
+  sha256:  a7caefa866439a145d2df6bae6204de1dc0b5d18bf70afb0f0678746b7ea3fe5
+
+run 2 (seed 42, same parameters)
+  records: 5,000
+  sha256:  a7caefa866439a145d2df6bae6204de1dc0b5d18bf70afb0f0678746b7ea3fe5
+
+run 3 (seed 1337, control)
+  records: 5,000
+  sha256:  e84c467963ece0284284e4c9a9b8954e2997df8b35ea415f0aff3b7688c7b0fb
+
+check                            result
+-------------------------------  ------
+run 1 == run 2 (same seed)       PASS  
+run 1 != run 3 (different seed)  PASS  
+
+VERDICT: replay is deterministic for a given seed, and the seed genuinely determines the ordering. C15 holds.

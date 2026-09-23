@@ -1,0 +1,299 @@
+=== HDFS LAYOUT ===
+claim:     HDFS is the data-lake layer for raw and cleaned data
+generated: 2026-09-23 15:43:25 UTC
+command:   make evidence-hdfs-listing
+
+backend:     hdfs
+root:        hdfs://localhost:9000
+replication: 1
+
+raw output of: hdfs dfs -ls -R /sentiment
+
+  drwxr-xr-x   - root  supergroup          0 2026-09-23 15:32 /sentiment/checkpoints
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:21 /sentiment/clean
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:21 /sentiment/clean/_SUCCESS
+  -rw-r--r--   1 aaron supergroup  134531537 2026-09-23 06:21 /sentiment/clean/part-00000-02c179b0-c833-49c4-889b-6b1b87f8a5be-c000.snappy.parquet
+  -rw-r--r--   1 aaron supergroup  130831808 2026-09-23 06:21 /sentiment/clean/part-00001-02c179b0-c833-49c4-889b-6b1b87f8a5be-c000.snappy.parquet
+  drwxr-xr-x   - root  supergroup          0 2026-09-23 06:39 /sentiment/models
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        313 2026-09-23 06:37 /sentiment/models/lr_keep/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/0_Tokenizer_3ed130a58cf4
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/0_Tokenizer_3ed130a58cf4/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/0_Tokenizer_3ed130a58cf4/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:37 /sentiment/models/lr_keep/stages/0_Tokenizer_3ed130a58cf4/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/1_StopWordsRemover_ba845d3e9edb
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/1_StopWordsRemover_ba845d3e9edb/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/1_StopWordsRemover_ba845d3e9edb/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:37 /sentiment/models/lr_keep/stages/1_StopWordsRemover_ba845d3e9edb/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/2_HashingTF_88d120beafc6
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/2_HashingTF_88d120beafc6/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/2_HashingTF_88d120beafc6/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:37 /sentiment/models/lr_keep/stages/2_HashingTF_88d120beafc6/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/data/part-00000-3365b170-57f1-49a7-9773-5c057d78e2f5-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:37 /sentiment/models/lr_keep/stages/3_IDF_99df8aef4275/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     457459 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/data/part-00000-5333e6aa-5efa-465d-a512-f41659431458-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        614 2026-09-23 06:37 /sentiment/models/lr_keep/stages/4_LogisticRegression_f51f4a1c581d/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:37 /sentiment/models/lr_keep_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        259 2026-09-23 06:37 /sentiment/models/lr_keep_manifest/part-00000-cb423254-8eeb-4359-835c-b920846ea6a8-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        313 2026-09-23 06:39 /sentiment/models/lr_map/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/0_Tokenizer_b115bb506e4c
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/0_Tokenizer_b115bb506e4c/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/0_Tokenizer_b115bb506e4c/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:39 /sentiment/models/lr_map/stages/0_Tokenizer_b115bb506e4c/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/1_StopWordsRemover_175c8ca8b34c
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/1_StopWordsRemover_175c8ca8b34c/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/1_StopWordsRemover_175c8ca8b34c/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:39 /sentiment/models/lr_map/stages/1_StopWordsRemover_175c8ca8b34c/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/2_HashingTF_794682614054
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/2_HashingTF_794682614054/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/2_HashingTF_794682614054/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:39 /sentiment/models/lr_map/stages/2_HashingTF_794682614054/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/data/part-00000-29a51dd7-98bf-476c-a165-cf6f7cb7bb29-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:39 /sentiment/models/lr_map/stages/3_IDF_91a2e0bdc5cb/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     457459 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/data/part-00000-42041a70-56e4-4081-a98a-e627f0f2ddb9-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        614 2026-09-23 06:39 /sentiment/models/lr_map/stages/4_LogisticRegression_4abc63139694/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:39 /sentiment/models/lr_map_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        258 2026-09-23 06:39 /sentiment/models/lr_map_manifest/part-00000-6b434791-60f1-45e7-985c-a4b5e282a678-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        313 2026-09-23 06:31 /sentiment/models/lr_strip/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/0_Tokenizer_2a8cd00489a4
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/0_Tokenizer_2a8cd00489a4/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/0_Tokenizer_2a8cd00489a4/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:31 /sentiment/models/lr_strip/stages/0_Tokenizer_2a8cd00489a4/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/1_StopWordsRemover_22602958593e
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/1_StopWordsRemover_22602958593e/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/1_StopWordsRemover_22602958593e/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:31 /sentiment/models/lr_strip/stages/1_StopWordsRemover_22602958593e/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/2_HashingTF_8641041ce56e
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/2_HashingTF_8641041ce56e/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/2_HashingTF_8641041ce56e/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:31 /sentiment/models/lr_strip/stages/2_HashingTF_8641041ce56e/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/data/part-00000-0a2ee4f3-f57a-4d69-8796-3af6fa40c957-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:31 /sentiment/models/lr_strip/stages/3_IDF_0dc681aa94be/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     457459 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/data/part-00000-f56c224d-1c8f-457c-a21b-764ca24fcb65-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        614 2026-09-23 06:31 /sentiment/models/lr_strip/stages/4_LogisticRegression_a095328d01c5/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:31 /sentiment/models/lr_strip_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        260 2026-09-23 06:31 /sentiment/models/lr_strip_manifest/part-00000-f07500a3-6014-4a6a-9109-61e4ed42383f-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        305 2026-09-23 06:24 /sentiment/models/nb/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/0_Tokenizer_d0e6f76e2379
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/0_Tokenizer_d0e6f76e2379/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/0_Tokenizer_d0e6f76e2379/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:24 /sentiment/models/nb/stages/0_Tokenizer_d0e6f76e2379/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/1_StopWordsRemover_41e9b147d091
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/1_StopWordsRemover_41e9b147d091/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/1_StopWordsRemover_41e9b147d091/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:24 /sentiment/models/nb/stages/1_StopWordsRemover_41e9b147d091/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/2_HashingTF_e5db2d367f16
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/2_HashingTF_e5db2d367f16/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/2_HashingTF_e5db2d367f16/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:24 /sentiment/models/nb/stages/2_HashingTF_e5db2d367f16/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/data/part-00000-da8aac03-f8df-48b3-bcf6-295a62fd2aa6-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:24 /sentiment/models/nb/stages/3_IDF_431f468fd30a/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     270712 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/data/part-00000-a9a92372-faf8-4fff-b58b-81912e1d7124-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        450 2026-09-23 06:24 /sentiment/models/nb/stages/4_NaiveBayes_57f6fbdd6a9e/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        305 2026-09-23 06:27 /sentiment/models/nb_keep/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/0_Tokenizer_b2f482c02502
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/0_Tokenizer_b2f482c02502/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/0_Tokenizer_b2f482c02502/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:27 /sentiment/models/nb_keep/stages/0_Tokenizer_b2f482c02502/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/1_StopWordsRemover_6c11d609f734
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/1_StopWordsRemover_6c11d609f734/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/1_StopWordsRemover_6c11d609f734/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:27 /sentiment/models/nb_keep/stages/1_StopWordsRemover_6c11d609f734/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/2_HashingTF_4fb9ab1c3e5c
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/2_HashingTF_4fb9ab1c3e5c/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/2_HashingTF_4fb9ab1c3e5c/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:27 /sentiment/models/nb_keep/stages/2_HashingTF_4fb9ab1c3e5c/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/data/part-00000-d5c008d1-6388-4142-9db6-dd218ec9de4c-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:27 /sentiment/models/nb_keep/stages/3_IDF_337c6b509c36/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     270712 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/data/part-00000-71fc2331-fce9-4b66-8315-5c90800085bb-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        450 2026-09-23 06:27 /sentiment/models/nb_keep/stages/4_NaiveBayes_366338a90df2/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:27 /sentiment/models/nb_keep_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        251 2026-09-23 06:27 /sentiment/models/nb_keep_manifest/part-00000-ead70154-2a99-496e-bd1d-f3fc48bf7cbf-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:24 /sentiment/models/nb_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        252 2026-09-23 06:24 /sentiment/models/nb_manifest/part-00000-c0c1e1a5-c206-4fa6-8b6d-ca252bf6ba74-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        305 2026-09-23 06:29 /sentiment/models/nb_map/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/0_Tokenizer_db604d5aafef
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/0_Tokenizer_db604d5aafef/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/0_Tokenizer_db604d5aafef/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:29 /sentiment/models/nb_map/stages/0_Tokenizer_db604d5aafef/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/1_StopWordsRemover_c37397e456e8
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/1_StopWordsRemover_c37397e456e8/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/1_StopWordsRemover_c37397e456e8/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:29 /sentiment/models/nb_map/stages/1_StopWordsRemover_c37397e456e8/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/2_HashingTF_593caee56c8d
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/2_HashingTF_593caee56c8d/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/2_HashingTF_593caee56c8d/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:29 /sentiment/models/nb_map/stages/2_HashingTF_593caee56c8d/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/data/part-00000-d8b0d30b-5330-46d5-965b-ae495d32b66f-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:29 /sentiment/models/nb_map/stages/3_IDF_30e9877f0642/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     270712 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/data/part-00000-2f8cfc6f-c1b4-40d5-abc7-edb7360a2289-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        450 2026-09-23 06:29 /sentiment/models/nb_map/stages/4_NaiveBayes_9e1aaa5eaf38/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:29 /sentiment/models/nb_map_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        250 2026-09-23 06:29 /sentiment/models/nb_map_manifest/part-00000-c6da23d0-07f7-4c3b-9518-5962f39e84e4-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        305 2026-09-23 06:26 /sentiment/models/nb_strip/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/0_Tokenizer_ff0abde107a0
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/0_Tokenizer_ff0abde107a0/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/0_Tokenizer_ff0abde107a0/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        253 2026-09-23 06:26 /sentiment/models/nb_strip/stages/0_Tokenizer_ff0abde107a0/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/1_StopWordsRemover_2c6276df6caa
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/1_StopWordsRemover_2c6276df6caa/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/1_StopWordsRemover_2c6276df6caa/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup       1671 2026-09-23 06:26 /sentiment/models/nb_strip/stages/1_StopWordsRemover_2c6276df6caa/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/2_HashingTF_16e149f53b48
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/2_HashingTF_16e149f53b48/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/2_HashingTF_16e149f53b48/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        320 2026-09-23 06:26 /sentiment/models/nb_strip/stages/2_HashingTF_16e149f53b48/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     162607 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/data/part-00000-e19af45a-bada-441b-9c40-25cbfabc187c-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        274 2026-09-23 06:26 /sentiment/models/nb_strip/stages/3_IDF_db2f9db3f58d/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/data
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/data/_SUCCESS
+  -rw-r--r--   1 aaron supergroup     270712 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/data/part-00000-0154f359-dc09-4145-b9d1-71af0c2c5b52-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/metadata
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/metadata/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        450 2026-09-23 06:26 /sentiment/models/nb_strip/stages/4_NaiveBayes_7a843e71e6f0/metadata/part-00000
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip_manifest
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:26 /sentiment/models/nb_strip_manifest/_SUCCESS
+  -rw-r--r--   1 aaron supergroup        252 2026-09-23 06:26 /sentiment/models/nb_strip_manifest/part-00000-14b29725-33c0-4bdd-bc88-eaffd850e999-c000.txt
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:19 /sentiment/raw
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:19 /sentiment/raw/_SUCCESS
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:19 /sentiment/raw/label=negative
+  -rw-r--r--   1 aaron supergroup   62373650 2026-09-23 06:19 /sentiment/raw/label=negative/part-00000-f329c960-c966-4cce-9af7-6ec44619c995.c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:19 /sentiment/raw/label=positive
+  -rw-r--r--   1 aaron supergroup    1021470 2026-09-23 06:19 /sentiment/raw/label=positive/part-00000-f329c960-c966-4cce-9af7-6ec44619c995.c000.snappy.parquet
+  -rw-r--r--   1 aaron supergroup   59593886 2026-09-23 06:19 /sentiment/raw/label=positive/part-00001-f329c960-c966-4cce-9af7-6ec44619c995.c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:21 /sentiment/test
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:21 /sentiment/test/_SUCCESS
+  -rw-r--r--   1 aaron supergroup   27303983 2026-09-23 06:21 /sentiment/test/part-00000-98cbff33-3bc3-4f4e-b8db-b2d55aab60b1-c000.snappy.parquet
+  -rw-r--r--   1 aaron supergroup   26834638 2026-09-23 06:21 /sentiment/test/part-00001-98cbff33-3bc3-4f4e-b8db-b2d55aab60b1-c000.snappy.parquet
+  drwxr-xr-x   - aaron supergroup          0 2026-09-23 06:21 /sentiment/train
+  -rw-r--r--   1 aaron supergroup          0 2026-09-23 06:21 /sentiment/train/_SUCCESS
+  -rw-r--r--   1 aaron supergroup  107778516 2026-09-23 06:21 /sentiment/train/part-00000-095c9495-412c-445f-bc29-2fb5e17041d6-c000.snappy.parquet
+  -rw-r--r--   1 aaron supergroup  105159517 2026-09-23 06:21 /sentiment/train/part-00001-095c9495-412c-445f-bc29-2fb5e17041d6-c000.snappy.parquet
+  ... 2,914 entries under /sentiment/checkpoints/ (Spark streaming offsets and commits) omitted
+
+summary
+metric       value   
+-----------  --------
+directories  238     
+files        2,935   
+total size   666.2 MB
+
+per top-level path
+path                    state    files  size    
+----------------------  -------  -----  --------
+/sentiment/raw          present  4      117.3 MB
+/sentiment/clean        present  3      253.1 MB
+/sentiment/train        present  3      203.1 MB
+/sentiment/test         present  3      51.6 MB 
+/sentiment/models       present  126    3.5 MB  
+/sentiment/checkpoints  present  2,796  37.7 MB 
+
+hdfs fsck /sentiment
+  Status: HEALTHY
+  Total blocks (validated):	2869 (avg. block size 243486 B)
+  Under-replicated blocks:	0 (0.0 %)
+  Default replication factor:	1
+  Average block replication:	1.0
+  Corrupt blocks:		0
+  Missing replicas:		0 (0.0 %)
+
+Replication factor is 1 on a single datanode: this provides real HDFS semantics, paths, CLI and block-based splitting, but not the fault tolerance of a multi-node cluster. See docs/LIMITATIONS.md.

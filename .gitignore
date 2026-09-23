@@ -1,0 +1,27 @@
+# secrets
+.env
+kaggle.json
+
+# python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# data + artifacts (never commit the corpus or trained models)
+data/
+spark-warehouse/
+checkpoints/
+*.log
+
+# docs/evidence/ IS committed: small text proofs the report cites, so
+# teammates can read them without running the pipeline.
+
+# node
+web/node_modules/
+web/dist/
+
+# python packaging build output
+*.egg-info/

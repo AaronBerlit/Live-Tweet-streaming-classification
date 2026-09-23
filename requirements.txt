@@ -1,0 +1,27 @@
+# Pinned to the stack asserted by pipeline/versions.py (C25).
+# Python 3.11 only -- PySpark 3.5 does not support 3.12+.
+
+pyspark==3.5.3
+pymongo==4.10.1
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+python-dotenv==1.0.1
+kaggle==1.6.17
+emoji==2.14.0
+websockets==14.1
+
+# pyspark.ml requires numpy; pandas + pyarrow enable Arrow-based conversion,
+# and psutil lets Spark account for memory when spilling.
+numpy==2.2.1
+pandas==2.2.3
+pyarrow==18.1.0
+psutil==6.1.1
+
+# Kafka producer client for pipeline/producer.py --sink kafka (C13).
+kafka-python-ng==2.2.3
+
+# dev
+pytest==8.3.4
+pytest-asyncio==0.25.0
+httpx==0.28.1

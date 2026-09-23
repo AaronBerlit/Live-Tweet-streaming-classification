@@ -1,0 +1,20 @@
+=== KAFKA RESUME FROM CHECKPOINT ===
+claim:     Restarting the Kafka consumer resumes from its retained offset: nothing lost, nothing counted twice
+generated: 2026-09-23 07:04:24 UTC
+command:   make evidence-kafka-resume
+
+run id: kafka_resume_20260923_070424  |  records: 20,000 at 200/s
+topic tweets.raw recreated (3 partitions)
+SIGKILL after 6,435 rows in 6 batches
+producer finished; topic holds 20,000 messages
+
+check                                        value           
+-------------------------------------------  ----------------
+messages published to the topic              20,000          
+rows read by Spark, over distinct batch ids  20,000          
+batches                                      13              
+rows read before the crash                   6,435           
+rows read after the restart                  13,565          
+windows sum == scored (before watermark)     66,789 == 66,789
+
+VERDICT: every published message was read exactly once across the crash and restart, and the replayed batch wrote nothing twice. C13 holds.

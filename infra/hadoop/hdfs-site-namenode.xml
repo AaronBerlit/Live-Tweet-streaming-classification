@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+  Single-node pseudo-distributed HDFS (PRD C4). dfs.replication=1: real HDFS
+  API, paths and block splitting, but no fault tolerance: docs/LIMITATIONS.md.
+-->
+<configuration>
+  <property><name>dfs.replication</name><value>1</value></property>
+  <property><name>dfs.namenode.name.dir</name><value>/hadoop/dfs/name</value></property>
+  <property><name>dfs.namenode.rpc-bind-host</name><value>0.0.0.0</value></property>
+  <property><name>dfs.namenode.servicerpc-bind-host</name><value>0.0.0.0</value></property>
+  <property><name>dfs.namenode.http-bind-host</name><value>0.0.0.0</value></property>
+  <!-- Clients run outside Docker; container IPs are unroutable from there. -->
+  <property><name>dfs.client.use.datanode.hostname</name><value>true</value></property>
+  <property><name>dfs.namenode.datanode.registration.ip-hostname-check</name><value>false</value></property>
+  <!-- A course demo, not a multi-tenant cluster: no POSIX permission checks. -->
+  <property><name>dfs.permissions.enabled</name><value>false</value></property>
+</configuration>

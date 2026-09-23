@@ -1,0 +1,43 @@
+=== WATERMARK AND LATE DATA ===
+claim:     Watermarks bound window state; late records are dropped and counted
+generated: 2026-09-23 15:43:48 UTC
+command:   make evidence-watermark
+
+configured stream semantics
+setting          value    
+---------------  ---------
+window           1 minute 
+watermark delay  2 minutes
+trigger          5 seconds
+
+current heartbeat
+field                 value                           
+--------------------  --------------------------------
+last_batch_id         120                             
+last_batch_at         2026-09-23 15:42:55.946000+00:00
+watermark             2026-09-23 15:40:31.549000+00:00
+late_records_dropped  0                               
+input_source          socket                          
+
+batches with a watermark set: 119 of 120
+
+watermark progression (last 12 batches that had one)
+batch  watermark                         rows   late dropped (cumulative)
+-----  --------------------------------  -----  -------------------------
+109    2026-09-23 15:39:38.619000+00:00  1,000  0                        
+110    2026-09-23 15:39:43.620000+00:00  805    0                        
+111    2026-09-23 15:39:47.644000+00:00  999    0                        
+112    2026-09-23 15:39:52.640000+00:00  1,001  0                        
+113    2026-09-23 15:39:57.644000+00:00  1,000  0                        
+114    2026-09-23 15:40:02.644000+00:00  1,000  0                        
+115    2026-09-23 15:40:07.644000+00:00  1,000  0                        
+116    2026-09-23 15:40:12.644000+00:00  781    0                        
+117    2026-09-23 15:40:16.549000+00:00  1,000  0                        
+118    2026-09-23 15:40:21.549000+00:00  1,000  0                        
+119    2026-09-23 15:40:26.549000+00:00  1,000  0                        
+120    2026-09-23 15:40:31.549000+00:00  1,000  0                        
+
+The watermark advances monotonically behind the newest event time. That is what bounds deduplication state: keys older than it are released, so a long run cannot grow state without limit.
+
+late records dropped across the run: 0
+  Zero is the expected result for an in-order replay: the producer emits monotonically increasing event times, so nothing arrives after its watermark. The drop-and-count path itself is proven by tests/integration/test_late_data.py, which feeds a record eight minutes behind the watermark and asserts it is dropped and that heartbeat.late_records_dropped reaches 1.
