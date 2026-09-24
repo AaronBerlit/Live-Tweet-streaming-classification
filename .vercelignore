@@ -1,7 +1,0 @@
-.venv/
-data/
-web/node_modules/
-web/dist/
-tests/
-docs/evidence/
-**/__pycache__/

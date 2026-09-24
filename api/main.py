@@ -56,8 +56,8 @@ app.add_middleware(
 
 
 def repository() -> Repository:
-    # Created on first use as well as at startup: a serverless host (the Vercel
-    # deployment) may not run the lifespan hook before the first request.
+    # Created on first use as well as at startup, in case something requests
+    # it before the lifespan hook runs.
     if "repository" not in state:
         state["repository"] = Repository()
     return state["repository"]
@@ -248,17 +248,6 @@ def health() -> Envelope:
 
     # Actually probe the lake rather than asserting it is fine. Reporting
     # `ok` without looking is the same class of defect as a fabricated metric.
-    if settings.hosted_snapshot:
-        components.append(
-            ComponentHealth(
-                name="storage",
-                status=HealthStatus.UNKNOWN,
-                detail="HDFS runs on the team laptop; this hosted copy serves a "
-                "MongoDB snapshot only",
-                start_command="make up (on the laptop)",
-            )
-        )
-        return envelope([component.model_dump() for component in components], warnings)
     try:
         reachable = _lake_reachable()
         storage_status = HealthStatus.OK if reachable else HealthStatus.OFFLINE
@@ -306,8 +295,7 @@ def _time_anchor(source: str | None) -> datetime:
 
     While the stream is LIVE that is now. Otherwise it is the end of the
     newest window: a range measured back from now would show nothing at all
-    once a run is more than a day old -- an empty dashboard in REPLAY mode, or
-    on the hosted snapshot, the day after the data was produced.
+    once a run is more than a day old -- an empty dashboard in REPLAY mode.
     """
     derived, _, _ = _current_mode()
     if derived is Mode.LIVE:
@@ -481,22 +469,15 @@ def storage() -> Envelope:
     except RepositoryUnavailable as exc:
         return _degraded(exc)
 
-    if settings.hosted_snapshot:
-        entries = []
-        lake_warning = [
-            "Hosted snapshot: the HDFS data lake runs on the team laptop and is "
-            "not reachable from here. Lake sizes are in docs/evidence/hdfs_listing.txt."
+    try:
+        entries = [
+            {"path": entry.path, "size_bytes": entry.size_bytes, "is_dir": entry.is_dir}
+            for entry in hdfs.listing()
         ]
-    else:
-        try:
-            entries = [
-                {"path": entry.path, "size_bytes": entry.size_bytes, "is_dir": entry.is_dir}
-                for entry in hdfs.listing()
-            ]
-            lake_warning = []
-        except hdfs.StorageError as exc:
-            entries = []
-            lake_warning = [f"data lake unavailable: {exc}"]
+        lake_warning = []
+    except hdfs.StorageError as exc:
+        entries = []
+        lake_warning = [f"data lake unavailable: {exc}"]
 
     return envelope(
         {

@@ -103,11 +103,6 @@ class Settings:
     display_timezone: str = field(
         default_factory=lambda: _env("DISPLAY_TIMEZONE", "Asia/Kolkata")
     )
-    #: Set on the hosted (Vercel) deployment: it serves a MongoDB snapshot and
-    #: has no HDFS, Spark or Kafka behind it, and must say so rather than error.
-    hosted_snapshot: bool = field(
-        default_factory=lambda: _env("HOSTED_SNAPSHOT", "0").lower() in ("1", "true", "yes")
-    )
 
     def __post_init__(self) -> None:
         if self.storage_backend not in ("hdfs", "local"):

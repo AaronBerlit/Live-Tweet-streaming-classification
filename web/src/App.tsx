@@ -11,7 +11,7 @@ import { NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { ModeBadge } from "./components/ModeBadge";
 import { ShortcutSheet } from "./components/ShortcutSheet";
 import { ErrorState, LoadingCard } from "./components/States";
-import { HOSTED_SNAPSHOT, useLiveUpdates, useMode } from "./hooks/useApi";
+import { useLiveUpdates, useMode } from "./hooks/useApi";
 import { DataStorage } from "./pages/DataStorage";
 import { GettingStarted } from "./pages/GettingStarted";
 import { ModelPage } from "./pages/ModelPage";
@@ -91,16 +91,6 @@ export default function App() {
           ))}
         </nav>
       </header>
-
-      {HOSTED_SNAPSHOT ? (
-        <div className="border-b border-warning/30 bg-warning/10">
-          <p className="mx-auto max-w-[1400px] px-4 py-2 text-xs text-warning">
-            Hosted snapshot: these are real results recorded by the pipeline on the
-            team laptop, served from a copy of its MongoDB. Spark, Kafka and HDFS
-            are not running here, so this copy can only show REPLAY.
-          </p>
-        </div>
-      ) : null}
 
       <main id="main" className="mx-auto max-w-[1400px] px-4 py-6">
         {modeQuery.isError ? (

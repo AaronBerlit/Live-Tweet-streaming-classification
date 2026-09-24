@@ -1,6 +1,0 @@
-# Only what the read-only API needs. The root requirements.txt includes PySpark
-# (~320 MB), which is far over Vercel's function size limit.
-fastapi==0.115.6
-pymongo==4.10.1
-pydantic==2.10.4
-python-dotenv==1.0.1

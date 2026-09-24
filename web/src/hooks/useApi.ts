@@ -93,19 +93,11 @@ export const useStorage = () =>
  * On reconnect we invalidate everything rather than trying to replay what was
  * missed -- re-fetching is cheap and always correct.
  */
-/**
- * Set at build time on the hosted (Vercel) deployment. That copy serves a
- * MongoDB snapshot through serverless functions, which cannot hold a
- * WebSocket open, so it relies on polling and says what it is.
- */
-export const HOSTED_SNAPSHOT = import.meta.env.VITE_HOSTED_SNAPSHOT === "1";
-
 export function useLiveUpdates(): { connected: boolean | undefined } {
   const queryClient = useQueryClient();
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    if (HOSTED_SNAPSHOT) return undefined;
     const unsubscribe = subscribe(
       (event) => {
         if (event.type === "mode_change") {
@@ -129,5 +121,5 @@ export function useLiveUpdates(): { connected: boolean | undefined } {
     return unsubscribe;
   }, [queryClient]);
 
-  return { connected: HOSTED_SNAPSHOT ? undefined : connected };
+  return { connected };
 }
