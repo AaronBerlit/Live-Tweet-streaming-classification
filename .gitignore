@@ -22,6 +22,7 @@ checkpoints/
 # node
 web/node_modules/
 web/dist/
+web/*.tsbuildinfo
 
 # python packaging build output
 *.egg-info/
