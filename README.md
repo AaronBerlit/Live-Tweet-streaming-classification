@@ -1,7 +1,5 @@
 # Real-Time Sentiment Analytics of Social Media Streams
 
-BCSE402L Big Data Analytics — DA-2 final project, VIT Chennai.
-Aaron Berlit (23BLC1316) · Arnav Mishra (23BLC1257) · Sachin S S (23BLC1235)
 
 A Big Data pipeline that replays the Sentiment140 corpus as a continuous
 stream, classifies each record with a Spark MLlib model, aggregates results
